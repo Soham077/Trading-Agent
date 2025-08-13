@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.venv/
+logs/
+models/
+.notebook_cache/
+.ipynb_checkpoints/

@@ -1,0 +1,73 @@
+repo_version: 0.1.0
+mode: paper  # default safe mode
+symbols:
+  - AAPL
+timeframes:
+  - 1h
+
+data:
+  source: csv  # csv|yfinance|ccxt
+  csv_path: data/sample_ohlcv.csv
+  datetime_column: timestamp
+  tz: UTC
+  start: null
+  end: null
+
+env:
+  window_size: 30
+  commission: 0.0005
+  spread: 0.0
+  slippage: 0.0
+  leverage: 1
+  account_size: 10000.0
+  margin_mode: cross
+  action_space: discrete  # discrete|continuous
+
+risk_limits:
+  max_position_pct: 0.02
+  max_daily_loss: 0.05
+  max_drawdown_pct: 0.25
+
+auto_topup:
+  enabled: false
+
+logging:
+  log_dir: logs
+  models_dir: models
+  checkpoint_interval_steps: 5000
+  equity_curve_filename: equity.png
+  trade_log_filename: trades.csv
+  account_snapshot_filename: account_snapshots.csv
+  signals_filename: signals.csv
+
+metrics:
+  wandb: false
+  mlflow: false
+
+train:
+  algorithm: ppo  # ppo|sac
+  total_timesteps: 10000
+  learning_rate: 0.0003
+  batch_size: 64
+  n_steps: 2048
+  policy_kwargs: {}
+  eval_episodes: 5
+
+evaluate:
+  episodes: 100
+
+parallel:
+  num_envs: 1
+  vec_env: dummy  # dummy|subproc
+
+live:
+  adapter: ccxt
+  exchange: binance
+  market_type: spot
+  testnet: true
+  api_key: ${BINANCE_API_KEY}
+  api_secret: ${BINANCE_API_SECRET}
+  poll_interval_seconds: 1.0
+
+model:
+  version: untrained
